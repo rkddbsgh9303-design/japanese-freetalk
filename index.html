@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#C41E3A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="AI 원어민 튜터와 함께하는 일본어 회화 연습 앱">
+  <title>日本語フリートーク</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ========== 온보딩 (간소화) ========== -->
+    <div id="onboarding-screen" class="screen active">
+      <div class="onboarding-container">
+        <div class="onboarding-hero">
+          <div class="onboarding-icon">話</div>
+          <h1 class="onboarding-title">日本語フリートーク</h1>
+          <p class="onboarding-subtitle">AI 원어민 튜터와 함께하는<br>일본어 회화 연습</p>
+        </div>
+        <div class="onboarding-form">
+          <div class="form-group">
+            <label><span class="label-icon">📊</span> 학습 레벨</label>
+            <div class="level-selector" id="onboarding-level-selector">
+              <button type="button" class="level-btn active" data-level="auto">🤖 자동감지</button>
+              <button type="button" class="level-btn" data-level="A1">A1</button>
+              <button type="button" class="level-btn" data-level="A2">A2</button>
+              <button type="button" class="level-btn" data-level="B1">B1</button>
+              <button type="button" class="level-btn" data-level="B2">B2</button>
+              <button type="button" class="level-btn" data-level="C1">C1</button>
+              <button type="button" class="level-btn" data-level="C2">C2</button>
+            </div>
+          </div>
+          <button type="button" id="start-btn" class="primary-btn">
+            <span>会話を始めよう！</span>
+            <span class="btn-sub">대화를 시작하자!</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 메인 채팅 ========== -->
+    <div id="chat-screen" class="screen">
+      <header class="chat-header">
+        <div class="header-left">
+          <div class="header-mode" id="header-mode">프리토킹</div>
+          <span class="level-badge" id="level-badge">자동</span>
+        </div>
+        <div class="header-right">
+          <button type="button" class="header-btn" id="new-chat-btn" title="새 대화">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <button type="button" class="header-btn" id="scenario-btn" title="역할극">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </button>
+          <button type="button" class="header-btn" id="settings-btn" title="설정">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="chat-messages" id="chat-messages">
+        <div class="welcome-message" id="welcome-message">
+          <div class="welcome-icon">🎌</div>
+          <h2>日本語で話しましょう！</h2>
+          <p>일본어로 이야기해볼까요?</p>
+          <div class="quick-starts">
+            <button type="button" class="quick-start-btn" data-message="こんにちは！日本語を練習したいです。">🗣️ 인사하며 시작하기</button>
+            <button type="button" class="quick-start-btn" data-message="自己紹介をお願いします。">👋 자기소개 부탁하기</button>
+            <button type="button" class="quick-start-btn" data-message="今日はどんな話をしましょうか？">💬 주제 정하기</button>
+          </div>
+        </div>
+        <div class="message ai typing-indicator hidden" id="typing-indicator">
+          <div class="message-content">
+            <div class="typing-dots"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <textarea id="message-input" placeholder="日本語で話してみよう！" rows="1" maxlength="500"></textarea>
+        <button type="button" id="mic-btn" class="mic-btn" title="음성 입력 (일본어)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </button>
+        <button type="button" id="send-btn" class="send-btn" disabled title="전송">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ========== 시나리오 선택 ========== -->
+    <div id="scenario-screen" class="screen">
+      <header class="screen-header">
+        <button type="button" class="back-btn" id="scenario-back-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <h2>🎭 역할극 시나리오</h2>
+        <div class="header-spacer"></div>
+      </header>
+      <div class="scenario-content">
+        <div class="category-tabs" id="category-tabs">
+          <button type="button" class="category-tab active" data-category="all">전체</button>
+        </div>
+        <div class="scenario-grid" id="scenario-grid"></div>
+      </div>
+    </div>
+
+    <!-- ========== 설정 ========== -->
+    <div id="settings-screen" class="screen">
+      <header class="screen-header">
+        <button type="button" class="back-btn" id="settings-back-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <h2>⚙️ 설정</h2>
+        <div class="header-spacer"></div>
+      </header>
+      <div class="settings-content">
+        <div class="setting-group">
+          <label><span class="label-icon">📊</span> 학습 레벨</label>
+          <div class="level-selector" id="settings-level-selector">
+            <button type="button" class="level-btn active" data-level="auto">🤖 자동</button>
+            <button type="button" class="level-btn" data-level="A1">A1</button>
+            <button type="button" class="level-btn" data-level="A2">A2</button>
+            <button type="button" class="level-btn" data-level="B1">B1</button>
+            <button type="button" class="level-btn" data-level="B2">B2</button>
+            <button type="button" class="level-btn" data-level="C1">C1</button>
+            <button type="button" class="level-btn" data-level="C2">C2</button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label><span class="label-icon">🔑</span> 내 API 키 사용 (선택사항)</label>
+          <div class="input-wrapper">
+            <input type="password" id="settings-api-key" placeholder="비워두면 서버 키 사용" autocomplete="off">
+            <button type="button" class="toggle-password" id="toggle-settings-key">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <span class="api-link">비워두면 서버 기본 키를 사용합니다</span>
+        </div>
+        <div class="setting-group">
+          <label><span class="label-icon">🎨</span> 테마</label>
+          <div class="theme-toggle-wrapper">
+            <span class="theme-label">☀️ 라이트</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="theme-toggle">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="theme-label">🌙 다크</span>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label><span class="label-icon">💾</span> 데이터 관리</label>
+          <button type="button" id="clear-history-btn" class="danger-btn">대화 기록 모두 삭제</button>
+        </div>
+        <div class="settings-footer">
+          <p>日本語フリートーク v2.0</p>
+          <p>Powered by Google Gemini API</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden"><span id="toast-message"></span></div>
+  </div>
+
+  <script src="js/scenarios.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

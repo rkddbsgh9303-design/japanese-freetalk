@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <circle cx="96" cy="96" r="88" fill="#C41E3A"/>
+  <circle cx="96" cy="96" r="82" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/>
+  <text x="96" y="108" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="72" font-weight="700" fill="#FFFFFF">話</text>
+  <text x="96" y="148" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="16" font-weight="400" fill="#FFFFFF" opacity="0.8">フリートーク</text>
+</svg>
